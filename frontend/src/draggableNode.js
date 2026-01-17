@@ -1,3 +1,4 @@
+
 export const DraggableNode = ({ type, label }) => {
   const onDragStart = (event, nodeType) => {
     const appData = { nodeType };
@@ -14,7 +15,7 @@ export const DraggableNode = ({ type, label }) => {
       onDragStart={(event) => onDragStart(event, type)}
       draggable
     >
-      <span>{label}</span>
+      <span className="node-label">{label}</span>
     </div>
   );
 };

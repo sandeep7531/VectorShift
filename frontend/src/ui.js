@@ -10,6 +10,14 @@ import { TextNode } from "./nodes/textNode";
 
 import "reactflow/dist/style.css";
 import "./index.css"; // make sure this is imported somewhere once
+import { RemovableEdge } from "./RemovableEdge";
+import { ConditionNode } from "./nodes/conditionNode";
+import { LogNode } from "./nodes/logNode";
+import { ApiRequestNode } from "./nodes/apiRequestNode";
+import { TransformNode } from "./nodes/transformNode";
+import { AddNode } from "./nodes/addNode";
+import { NumberNode } from "./nodes/numberNode";
+import { NoteNode } from "./nodes/noteNode";
 
 const gridSize = 20;
 const proOptions = { hideAttribution: true };
@@ -19,6 +27,17 @@ const nodeTypes = {
   llm: LLMNode,
   customOutput: OutputNode,
   text: TextNode,
+  conditionNode: ConditionNode,
+  logNode: LogNode,
+  apiRequestNode: ApiRequestNode,
+  transformNode: TransformNode,
+  addNode: AddNode,
+  numberNode: NumberNode,
+  noteNode: NoteNode,
+};
+
+const edgeTypes = {
+  removable: RemovableEdge,
 };
 
 const selector = (state) => ({
@@ -100,6 +119,7 @@ export const PipelineUI = () => {
         proOptions={proOptions}
         snapGrid={[gridSize, gridSize]}
         connectionLineType="smoothstep"
+        edgeTypes={edgeTypes}
       >
         <Background color="#aaa" gap={gridSize} />
         <Controls />

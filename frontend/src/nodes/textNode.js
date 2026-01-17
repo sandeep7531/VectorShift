@@ -4,7 +4,9 @@ import { Position } from "reactflow";
 import { BaseNode } from "./baseNode";
 
 export const TextNode = ({ id, data }) => {
-  const [currText, setCurrText] = useState(data?.text || "{{input}} {{input2}} {{input3}} {{input5}}");
+  const [currText, setCurrText] = useState(
+    data?.text || "{{input}} {{input2}} {{input3}} {{input5}}"
+  );
 
   const variableRegex = /{{\s*([a-zA-Z_$][a-zA-Z0-9_$]*)\s*}}/g;
   const matches = [...currText.matchAll(variableRegex)];
@@ -21,7 +23,7 @@ export const TextNode = ({ id, data }) => {
     {
       id: "output",
       type: "source",
-      position: Position.Right,
+      position: Position.Right, // only right side
     },
   ];
 

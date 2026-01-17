@@ -1,37 +1,82 @@
-// frontend/src/nodes/baseNode.js
-import { Handle } from "reactflow";
+import { Handle, useReactFlow } from "reactflow";
+import { useState } from "react";
 
+export const BaseNode = ({
+  id,
+  title,
+  children,
+  handles = [],
+  hideHandles = false,
+  className = "",
+}) => {
+  const { setNodes } = useReactFlow();
+  const [collapsed, setCollapsed] = useState(false);
 
-export const BaseNode = ({ id, title, children, handles = [] }) => {
+  const handleDelete = () => {
+    setNodes((nodes) => nodes.filter((node) => node.id !== id));
+  };
+
+  const toggleCollapse = () => {
+    setCollapsed((prev) => !prev);
+  };
+
   return (
-    <div className="base-node">
-      <div className="base-node__header">{title}</div>
-      <div className="base-node__content">{children}</div>
+    <div className={`base-node ${className}`}>
+      {/* Header */}
+      {title && (
+        <div className="base-node__header">
+          <span>{title}</span>
 
-      {handles.map((h, i) => {
-        // we pass a CSS class with an index so we can style positions in CSS
-        const extraClass =
-          h.type === "target"
-            ? `base-node__handle-left-${i}`
-            : `base-node__handle-right-${i}`;
+          <div className="base-node__actions">
+            {/* Minimize */}
+            <button
+              className="base-node__action base-node__close"
+              onClick={toggleCollapse}
+              title={collapsed ? "Expand" : "Minimize"}
+            >
+              {collapsed ? "▢" : "–"}
+            </button>
 
-        return (
-          <Handle
-            key={`${id}-${h.id}-${i}`}
-            type={h.type}
-            position={h.position}
-            id={h.id}
-            isConnectable={true}
-            className={[
-              "base-node__handle",
-              h.type === "target"
-                ? "base-node__handle--target"
-                : "base-node__handle--source",
-              extraClass,
-            ].join(" ")}
-          />
-        );
-      })}
+            {/* Close */}
+            <button
+              className="base-node__action base-node__close"
+              onClick={handleDelete}
+              title="Delete node"
+            >
+              ✕
+            </button>
+          </div>
+        </div>
+      )}
+
+      {/* Content */}
+      {!collapsed && <div className="base-node__content">{children}</div>}
+
+      {/* Handles */}
+      {!hideHandles &&
+        handles.map((h, i) => {
+          const extraClass =
+            h.type === "target"
+              ? `base-node__handle-left-${i}`
+              : `base-node__handle-right-${i}`;
+
+          return (
+            <Handle
+              key={`${id}-${h.id}-${i}`}
+              type={h.type}
+              position={h.position}
+              id={h.id}
+              isConnectable
+              className={[
+                "base-node__handle",
+                h.type === "target"
+                  ? "base-node__handle--target"
+                  : "base-node__handle--source",
+                extraClass,
+              ].join(" ")}
+            />
+          );
+        })}
     </div>
   );
 };

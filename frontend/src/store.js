@@ -35,14 +35,25 @@ export const useStore = create((set, get) => ({
       edges: applyEdgeChanges(changes, get().edges),
     });
   },
+  removeEdge: (edgeId) => {
+    set({
+      edges: get().edges.filter((e) => e.id !== edgeId),
+    });
+  },
+
   onConnect: (connection) => {
+    const removeEdge = get().removeEdge;
+
     set({
       edges: addEdge(
         {
           ...connection,
-          type: "smoothstep",
+          type: "removable", // must match edgeTypes key
           animated: true,
-          markerEnd: { type: MarkerType.Arrow, height: "20px", width: "20px" },
+          markerEnd: { type: MarkerType.Arrow, height: 20, width: 20 },
+          data: {
+            onDelete: removeEdge, // <--- this is what your edge gets as props.data.onDelete
+          },
         },
         get().edges
       ),
