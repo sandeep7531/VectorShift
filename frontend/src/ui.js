@@ -9,7 +9,7 @@ import { OutputNode } from "./nodes/outputNode";
 import { TextNode } from "./nodes/textNode";
 
 import "reactflow/dist/style.css";
-import "./index.css"; // make sure this is imported somewhere once
+import "./index.css"; 
 import { RemovableEdge } from "./RemovableEdge";
 import { ConditionNode } from "./nodes/conditionNode";
 import { LogNode } from "./nodes/logNode";

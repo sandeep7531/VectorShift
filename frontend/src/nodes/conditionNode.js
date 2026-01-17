@@ -27,14 +27,12 @@ export const ConditionNode = ({ id, data }) => {
           placeholder="input_name"
         />
 
-        {/* Info box */}
         <div className="condition-info">
           The condition node doesn't produce any outputs. It evaluates which
           path to execute based on the condition. To reference previous nodes in
           downstream paths, reference the previous node's output fields.
         </div>
 
-        {/* IF block */}
         <div className="condition-section">
           <div className="condition-header">
             <span className="pill">If</span>

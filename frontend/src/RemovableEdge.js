@@ -1,4 +1,3 @@
-// frontend/src/RemovableEdge.jsx
 import { BaseEdge, EdgeLabelRenderer, getBezierPath } from "reactflow";
 
 export function RemovableEdge(props) {
@@ -15,8 +14,6 @@ export function RemovableEdge(props) {
     data,
   } = props;
 
-  console.log("Rendering RemovableEdge", props);
-  // Use RF helper to get path and center coordinates
   const [edgePath, labelX, labelY] = getBezierPath({
     sourceX,
     sourceY,
@@ -35,7 +32,6 @@ export function RemovableEdge(props) {
 
   return (
     <>
-      {/* Let React Flow draw the edge path (SVG) */}
       <BaseEdge
         id={id}
         path={edgePath}
@@ -44,7 +40,6 @@ export function RemovableEdge(props) {
         className="removable-edge-path"
       />
 
-      {/* Render a normal HTML button as edge label */}
       <EdgeLabelRenderer>
         <button
           type="button"

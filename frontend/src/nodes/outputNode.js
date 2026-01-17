@@ -41,7 +41,6 @@ export const OutputNode = ({ id, data }) => {
         </select>
       </div>
 
-      {/* Output value */}
       <div className="output-field">
         <label className="output-label required">
           Output <span className="required-star">*</span>

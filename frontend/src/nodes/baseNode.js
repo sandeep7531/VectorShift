@@ -22,13 +22,11 @@ export const BaseNode = ({
 
   return (
     <div className={`base-node ${className}`}>
-      {/* Header */}
       {title && (
         <div className="base-node__header">
           <span>{title}</span>
 
           <div className="base-node__actions">
-            {/* Minimize */}
             <button
               className="base-node__action base-node__close"
               onClick={toggleCollapse}
@@ -37,7 +35,6 @@ export const BaseNode = ({
               {collapsed ? "▢" : "–"}
             </button>
 
-            {/* Close */}
             <button
               className="base-node__action base-node__close"
               onClick={handleDelete}
@@ -49,10 +46,8 @@ export const BaseNode = ({
         </div>
       )}
 
-      {/* Content */}
       {!collapsed && <div className="base-node__content">{children}</div>}
 
-      {/* Handles */}
       {!hideHandles &&
         handles.map((h, i) => {
           const extraClass =
