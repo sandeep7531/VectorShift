@@ -1,5 +1,5 @@
 // frontend/src/nodes/textNode.js
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { Position } from "reactflow";
 import { BaseNode } from "./baseNode";
 
@@ -27,6 +27,23 @@ export const TextNode = ({ id, data }) => {
     },
   ];
 
+    const { rows, cols } = useMemo(() => {
+      const minRows = 2;
+      const minCols = 20;
+
+      const lines = currText.split("\n");
+      const lineCount = lines.length;
+      const longestLineLength = lines.reduce(
+        (max, line) => Math.max(max, line.length),
+        0
+      );
+
+      return {
+        rows: Math.max(minRows, lineCount),
+        cols: Math.max(minCols, longestLineLength),
+      };
+    }, [currText]);
+
   return (
     <BaseNode id={id} title="Text" handles={handles}>
       <div className="node-field">
@@ -35,6 +52,8 @@ export const TextNode = ({ id, data }) => {
           className="node-textarea"
           value={currText}
           onChange={(e) => setCurrText(e.target.value)}
+          rows={rows}
+          cols={cols}
         />
       </div>
     </BaseNode>
